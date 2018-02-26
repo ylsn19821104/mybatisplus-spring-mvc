@@ -906,7 +906,9 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         if (HttpMethod.PATCH == httpMethod || httpMethod == null) {
             processRequest(request, response);
         } else {
+            //由HttpServlet路由到真实HttpMethod
             super.service(request, response);
+            //如果直接调用processRequest(request,response);
         }
     }
 
