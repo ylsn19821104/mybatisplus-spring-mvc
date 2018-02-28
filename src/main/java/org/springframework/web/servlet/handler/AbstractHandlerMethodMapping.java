@@ -314,6 +314,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		}
 		this.mappingRegistry.acquireReadLock();
 		try {
+			//获取HandlerMethod作为handler对象,这里涉及到路径匹配的优先级
+			//优先级：精确匹配>最长路径匹配>扩展名匹配
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
 			if (logger.isDebugEnabled()) {
 				if (handlerMethod != null) {

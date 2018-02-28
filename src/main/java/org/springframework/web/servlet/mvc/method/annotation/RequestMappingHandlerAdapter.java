@@ -749,7 +749,24 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	protected boolean supportsInternal(HandlerMethod handlerMethod) {
 		return true;
 	}
-
+	/**
+	 * 最重要的方法handlerInternal,实际使用Handler处理请求。具体处理过程大致可以分为三步:
+	 * 1)备好处理器所需要的参数
+	 * 2)使用处理器处理请求(反射)
+	 * 3)处理返回值
+	 *
+	 * 参数绑定需要明白三个问题:
+	 * 1.都有哪些参数需要绑定
+	 * 根据当前方法确定,但是不能忘记当前处理器对应的标注了@ModelAttribute和@InitBinder的方法.参数来源大致有6个:
+	 *   1)request中相关参数,主要包括url中的参数、post过来的参数以及请求头锁包含的值
+	 *   2)cookie中的参数
+	 *   3)session中的参数
+	 *   4)设置到FlashMap中的参数,这种参数主要用于redirect的参数传递
+	 *   5)SessionAttributes传递的参数,这类参数通过@SessionAttributes注释传递
+	 *   6）标注了@ModelAttribute的方法进行设置的参数
+	 * 2.参数的值的来源
+	 * 3.具体进行绑定的方法
+	 */
 	@Override
 	protected ModelAndView handleInternal(HttpServletRequest request,
 			HttpServletResponse response, HandlerMethod handlerMethod) throws Exception {

@@ -4,15 +4,18 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.springmvc.model.enums.TypeEnum;
 import com.baomidou.springmvc.model.system.User;
 import com.baomidou.springmvc.service.system.IUserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Author: D.Yang
@@ -40,6 +43,11 @@ public class UserController extends BaseController {
         modelAndView.setViewName("index");
         modelAndView.addObject("userList", userService.selectList(null));
         return modelAndView;
+    }
+
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 
     @RequestMapping("/preSave")
@@ -73,5 +81,23 @@ public class UserController extends BaseController {
     public User queryUserByName(@RequestParam("name") String name) {
         Wrapper<User> eq = new EntityWrapper<User>().eq("name", name);
         return userService.selectOne(eq);
+    }
+
+    @RequestMapping(value = "submit", method = RequestMethod.POST)
+    public Object submit(User user, RedirectAttributes attr) {
+        user.setType(TypeEnum.DISABLED);
+        if (user.getId() == null) {
+            //return userService.insert(user) ? renderSuccess("添加成功") : renderError("添加失败");
+        } else {
+            //return userService.updateById(user) ? renderSuccess("修改成功") : renderError("修改失败");
+        }
+        //((FlashMap) ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).
+        //      getRequest().getAttribute(DispatcherServlet.OUTPUT_FLASH_MAP_ATTRIBUTE));
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        FlashMap flashMap = (FlashMap) requestAttributes.getRequest().getAttribute(DispatcherServlet.OUTPUT_FLASH_MAP_ATTRIBUTE);
+        flashMap.put("name", "sky");
+        attr.addFlashAttribute("ordersId", "");
+        attr.addAttribute("local", "zh-cn");
+        return "redirect:/";
     }
 }

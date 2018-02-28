@@ -8,7 +8,7 @@
     <context:property-placeholder location="classpath:config.properties"/>
 
     <!-- Service包(自动注入) -->
-    <context:component-scan base-package="com.baomidou.springmvc.service"/>
+    <context:component-scan base-package="com.baomidou.springmvc.service,com.baomidou.springmvc.listener"/>
 
     <import resource="classpath:spring/spring-mybatis.xml"/>
 </beans>

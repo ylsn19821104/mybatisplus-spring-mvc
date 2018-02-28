@@ -1019,6 +1019,11 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
      * <p>The actual event handling is performed by the abstract
      * {@link #doService} template method.
      */
+    /**
+     * 主要做两件事
+     * 1.对LocalContext和RequestAttributes的设置和恢复
+     * 2.处理完成后发布ServletRequestHandledEvent消息
+     */
     protected final void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
