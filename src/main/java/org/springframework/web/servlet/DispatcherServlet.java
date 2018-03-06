@@ -1027,6 +1027,7 @@ public class DispatcherServlet extends FrameworkServlet {
         try {
             ModelAndView mv = null;
             //不包含渲染过程抛出的异常
+            //https://github.com/ctripcorp/apollo.git
             Exception dispatchException = null;
 
             try {
