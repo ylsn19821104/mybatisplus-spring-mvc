@@ -30,6 +30,20 @@ public class MapperTest {
     }
 
     @Test
+    public void insert() throws Exception {
+        User u = new User();
+        u.setAge(RandomUtils.nextInt(30, 99));
+        u.setName("test-" + RandomUtils.nextInt(200, 300));
+        userMapper.insert(u);
+    }
+
+    @Test
+    public void selectUser() {
+        User user = userMapper.selectUserDetail(976444798934228994L);
+        System.err.println(user);
+    }
+
+    @Test
     public void SelectUserByParam() throws Exception {
         Page<User> userPage = new Page<>(1, 10);
         userMapper.selectPage(userPage,

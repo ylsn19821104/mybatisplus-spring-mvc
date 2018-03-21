@@ -83,12 +83,6 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.web.context.support.XmlWebApplicationContext
  * @since 17.02.2003
  */
-
-/**
- * ContextLoader创建的是 XmlWebApplicationContext
- * 它实现的接口是WebApplicationContext->ConfigurableWebApplicationContext->ApplicationContext->BeanFactory
- * 这样一来spring中的所有bean都由这个类来创建
- */
 public class ContextLoader {
 
     /**
@@ -271,6 +265,11 @@ public class ContextLoader {
      * @see #ContextLoader(WebApplicationContext)
      * @see #CONTEXT_CLASS_PARAM
      * @see #CONFIG_LOCATION_PARAM
+     */
+    /**
+     * ContextLoader创建的是 XmlWebApplicationContext
+     * 它实现的接口是WebApplicationContext->ConfigurableWebApplicationContext->ApplicationContext->BeanFactory
+     * 这样一来spring中的所有bean都由这个类来创建
      */
     public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
         if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {

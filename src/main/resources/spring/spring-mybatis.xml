@@ -87,8 +87,8 @@
         -->
         <!-- Oracle需要添加该项 -->
         <!-- <property name="dbType" value="oracle" /> -->
-        <!-- 全局表为下划线命名设置 true -->
-        <!-- <property name="dbColumnUnderline" value="true" /> -->
+        <!-- 全局表为下划线命名设置 true
+        <property name="dbColumnUnderline" value="true" /> -->
         <property name="metaObjectHandler">
             <bean class="com.baomidou.springmvc.common.MyMetaObjectHandler"/>
         </property>
